@@ -1,0 +1,57 @@
+import 'dart:io';
+
+main() {
+  var historia = [];
+
+  var voitot = 0;
+  var haviot = 0;
+
+  while (true) {
+    print('Valitse 0 tai 1, muut lopettavat.');
+    var luku = int.parse(stdin.readLineSync());
+
+    if (luku != 0 && luku != 1) {
+      break;
+    }
+
+    var tietokone = valitse(historia);
+    print('Tietokone valitsi: $tietokone');
+
+    if (luku != tietokone) {
+      print('Voitit!');
+      voitot = voitot + 1;
+    } else {
+      print('Hävisit!');
+      haviot = haviot + 1;
+    }
+
+    historia.add(luku);
+  }
+
+  print('Kiitos pelistä!');
+  var peleja = voitot + haviot;
+  print('Voitit peleistä: $voitot/$peleja');
+}
+
+valitse(historia) {
+  if (historia.length == 0) {
+    return 1;
+  }
+  
+  var nollat = 0;
+  var yksi = 0;
+  for (int i = 0; i < historia.length; i++) {
+    if (historia[i] == 0) {
+      nollat++; 
+    }
+    else if (historia[i] == 1) {
+      yksi++;
+    }
+  }
+  if (nollat > yksi) {
+      return 0;
+    }
+  else {
+      return 1;
+    }
+}
